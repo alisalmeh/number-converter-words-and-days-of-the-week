@@ -7,44 +7,47 @@ namespace AliSalmeh_ProjectWeek4
         static void Main(string[] args)
         {
             bool runAgain = true;
+
             do
             {
                 Console.Clear();
                 PrintMenu();
 
-                var input = Convert.ToInt32(Console.ReadLine());
+                var input = GetUserInput();
 
-                if (input == 1)
+                switch (input)
                 {
-                    ConvertNumberToAlphabet();
+                    case 1:
+                        ConvertNumberToAlphabet();
+                        break;
+                    case 2:
+                        ConvertNumberToDay();
+                        break;
+                    case 3:
+                        runAgain = false;
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("You entered wrong item.\n Try again.");
+                        WaitForUserInput();
+                        break;
                 }
-                else if (input == 2)
-                {
-                    ConvertNumberToDay();
-                }
-                else if (input == 3)
-                {
-                    runAgain = false;
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("You entered wrong item.\n Try again.");
-                }
-
-                var backToMenu = Console.ReadLine();
-
             } while (runAgain);
-            
+
             Console.Clear();
             Console.WriteLine("Good Bye!");
+        }
+
+        public static void WaitForUserInput()
+        {
+            Console.ReadLine();
         }
 
         public static void ConvertNumberToDay()
         {
             Console.Clear();
             Console.WriteLine("Enter a number between 1 to 7 for days of the week: ");
-            var numToDayInput = Convert.ToInt32(Console.ReadLine());
+            var numToDayInput = GetUserInput();
 
             var daysOfWeek = new string[] { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
 
@@ -57,13 +60,15 @@ namespace AliSalmeh_ProjectWeek4
             {
                 Console.WriteLine("You entered out of range!");
             }
+
+            WaitForUserInput();
         }
 
         public static void ConvertNumberToAlphabet()
         {
             Console.Clear();
             Console.WriteLine("Enter a number between 1 to 10: ");
-            var numToAlphInput = Convert.ToInt32(Console.ReadLine());
+            var numToAlphInput = GetUserInput();
 
             var numberToWord = new string[] { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten" };
 
@@ -76,6 +81,14 @@ namespace AliSalmeh_ProjectWeek4
             {
                 Console.WriteLine("You entered out of range!");
             }
+
+            WaitForUserInput();
+        }
+
+        public static int GetUserInput()
+        {
+            Console.Write("--> ");
+            return Convert.ToInt32(Console.ReadLine());
         }
 
         public static void PrintMenu()
@@ -85,7 +98,6 @@ namespace AliSalmeh_ProjectWeek4
                                 "1) Convert number to alphabet\n" +
                                 "2) Convert number to day of week\n" +
                                 "3) Exit");
-            Console.Write("--> ");
         }
     }
 }
